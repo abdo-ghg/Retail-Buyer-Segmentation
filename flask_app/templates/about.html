@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}About - Retail Buyer Segmentation{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="section-header text-center mb-5">
+        <h2><i class="fas fa-info-circle"></i> About This Application</h2>
+        <p>Understanding customer segmentation through machine learning</p>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="about-card">
+                <h3><i class="fas fa-bullseye"></i> Purpose</h3>
+                <p>This web application uses machine learning algorithms to segment retail customers based on their purchasing behavior, demographics, and spending patterns. It helps businesses understand their customer base better and make data-driven marketing decisions.</p>
+            </div>
+
+            <div class="about-card">
+                <h3><i class="fas fa-cogs"></i> Technology Stack</h3>
+                <ul class="tech-list">
+                    <li><i class="fab fa-python"></i> <strong>Backend:</strong> Flask (Python Web Framework)</li>
+                    <li><i class="fas fa-brain"></i> <strong>ML Libraries:</strong> Scikit-learn, Pandas, NumPy</li>
+                    <li><i class="fas fa-chart-line"></i> <strong>Visualization:</strong> Matplotlib, Seaborn</li>
+                    <li><i class="fab fa-html5"></i> <strong>Frontend:</strong> HTML5, CSS3, Bootstrap 5</li>
+                    <li><i class="fab fa-js"></i> <strong>JavaScript:</strong> Vanilla JS for interactivity</li>
+                </ul>
+            </div>
+
+            <div class="about-card">
+                <h3><i class="fas fa-project-diagram"></i> Features</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="feature-item-about">
+                            <i class="fas fa-keyboard"></i>
+                            <h5>Manual Input</h5>
+                            <p>Enter customer data manually for quick predictions</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="feature-item-about">
+                            <i class="fas fa-file-upload"></i>
+                            <h5>CSV Upload</h5>
+                            <p>Process bulk customer data via CSV files</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="feature-item-about">
+                            <i class="fas fa-layer-group"></i>
+                            <h5>K-Means Clustering</h5>
+                            <p>Automatic customer segmentation using ML</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="feature-item-about">
+                            <i class="fas fa-chart-bar"></i>
+                            <h5>Visual Analytics</h5>
+                            <p>Interactive charts and visualizations</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-card">
+                <h3><i class="fas fa-graduation-cap"></i> How It Works</h3>
+                <ol class="how-it-works">
+                    <li><strong>Data Input:</strong> Upload CSV file or enter data manually</li>
+                    <li><strong>Preprocessing:</strong> Data is cleaned and normalized</li>
+                    <li><strong>Feature Engineering:</strong> Calculate derived features like total spending</li>
+                    <li><strong>Clustering:</strong> K-Means algorithm groups similar customers</li>
+                    <li><strong>Analysis:</strong> Generate insights and visualizations</li>
+                    <li><strong>Results:</strong> Display segments with actionable recommendations</li>
+                </ol>
+            </div>
+
+            <div class="about-card">
+                <h3><i class="fas fa-shield-alt"></i> Data Privacy</h3>
+                <p>All uploaded data is processed locally and not stored permanently. Files are deleted after analysis. Your customer data remains private and secure.</p>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="{{ url_for('home') }}" class="btn btn-danger btn-lg">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

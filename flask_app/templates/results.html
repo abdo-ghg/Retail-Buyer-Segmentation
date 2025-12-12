@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}Results - Retail Buyer Segmentation{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="section-header text-center mb-5">
+        <h2><i class="fas fa-chart-line"></i> Segmentation Results</h2>
+        <p>Customer analysis complete</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Model Used -->
+            {% if insights.model %}
+            <div class="alert alert-info text-center mb-4">
+                <i class="fas fa-brain"></i> <strong>Model Used:</strong> {{ insights.model }}
+            </div>
+            {% endif %}
+
+            <!-- Segment Card -->
+            <div class="result-card segment-card">
+                <div class="segment-badge">
+                    <i class="fas fa-tag"></i>
+                </div>
+                <h3>{{ insights.segment }} (Cluster {{ insights.prediction }})</h3>
+                <p class="lead">{{ insights.segment_description }}</p>
+            </div>
+
+            <!-- Metrics Grid -->
+            <div class="row g-3 my-4">
+                <div class="col-md-6">
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h5>Total Spent</h5>
+                            <h3>{{ insights.total_spent }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-shopping-basket"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h5>Total Purchases</h5>
+                            <h3>{{ insights.total_purchases }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h5>Avg Purchase Value</h5>
+                            <h3>{{ insights.avg_purchase_value }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h5>Top Category</h5>
+                            <h3>{{ insights.top_category }}</h3>
+                        </div>
+                    </div>
+                </div>
+                {% if insights.age %}
+                <div class="col-md-6">
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h5>Age</h5>
+                            <h3>{{ insights.age }}</h3>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if insights.family_size %}
+                <div class="col-md-6">
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h5>Family Size</h5>
+                            <h3>{{ insights.family_size }}</h3>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if insights.income %}
+                <div class="col-md-6">
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h5>Annual Income</h5>
+                            <h3>{{ insights.income }}</h3>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if insights.web_visits %}
+                <div class="col-md-6">
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h5>Web Visits</h5>
+                            <h3>{{ insights.web_visits }}</h3>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Recommendations -->
+            <div class="recommendations-card">
+                <h4><i class="fas fa-lightbulb"></i> Recommendations</h4>
+                {% if insights.prediction == 0 %}
+                <ul>
+                    <li><i class="fas fa-check"></i> Offer exclusive VIP programs and premium rewards</li>
+                    <li><i class="fas fa-check"></i> Provide personalized luxury product recommendations</li>
+                    <li><i class="fas fa-check"></i> Send early access to new premium products</li>
+                    <li><i class="fas fa-check"></i> Maintain high-touch customer service</li>
+                </ul>
+                {% else %}
+                <ul>
+                    <li><i class="fas fa-check"></i> Encourage upselling with targeted promotions</li>
+                    <li><i class="fas fa-check"></i> Send value-focused marketing campaigns</li>
+                    <li><i class="fas fa-check"></i> Highlight bundle deals and seasonal offers</li>
+                    <li><i class="fas fa-check"></i> Increase engagement with loyalty programs</li>
+                </ul>
+                {% endif %}
+            </div>
+
+            <!-- Actions -->
+            <div class="d-flex gap-3 mt-4">
+                <a href="{{ url_for('manual_input') }}" class="btn btn-outline-light btn-lg flex-fill">
+                    <i class="fas fa-redo"></i> Analyze Another
+                </a>
+                <a href="{{ url_for('home') }}" class="btn btn-danger btn-lg flex-fill">
+                    <i class="fas fa-home"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

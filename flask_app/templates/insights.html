@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}Insights - Retail Buyer Segmentation{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="section-header text-center mb-5">
+        <h2><i class="fas fa-chart-pie"></i> Data Insights & Analytics</h2>
+        <p>File: <strong>{{ filename }}</strong></p>
+    </div>
+
+    <!-- Summary Statistics -->
+    <div class="row g-3 mb-5">
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-content">
+                    <h6>Total Customers</h6>
+                    <h3>{{ stats.total_customers }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="stat-content">
+                    <h6>Average Income</h6>
+                    <h3>{{ stats.avg_income }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-birthday-cake"></i>
+                </div>
+                <div class="stat-content">
+                    <h6>Average Age</h6>
+                    <h3>{{ stats.avg_age }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-content">
+                    <h6>Total Revenue</h6>
+                    <h3>{{ stats.total_revenue }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="stat-content">
+                    <h6>Avg Spending</h6>
+                    <h3>{{ stats.avg_spending }}</h3>
+                </div>
+            </div>
+        </div>
+        {% if stats.num_segments %}
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <div class="stat-content">
+                    <h6>Customer Segments</h6>
+                    <h3>{{ stats.num_segments }}</h3>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Visualizations -->
+    {% if plots %}
+    <div class="section-header mb-4">
+        <h3><i class="fas fa-chart-bar"></i> Visual Analytics</h3>
+    </div>
+    <div class="row g-4 mb-5">
+        {% for plot in plots %}
+        <div class="col-md-6">
+            <div class="plot-card">
+                <img src="{{ url_for('static', filename='images/' + plot) }}" alt="{{ plot }}" class="img-fluid">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Data Preview -->
+    <div class="section-header mb-4">
+        <h3><i class="fas fa-table"></i> Data Preview (First 10 Rows)</h3>
+    </div>
+    <div class="table-card">
+        <div class="table-responsive">
+            {{ sample_data|safe }}
+        </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="d-flex gap-3 mt-4 justify-content-center">
+        <a href="{{ url_for('home') }}" class="btn btn-danger btn-lg">
+            <i class="fas fa-upload"></i> Upload Another File
+        </a>
+        <a href="{{ url_for('about') }}" class="btn btn-outline-light btn-lg">
+            <i class="fas fa-info-circle"></i> Learn More
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block title %}Manual Input - Retail Buyer Segmentation{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="section-header text-center mb-5">
+        <h2><i class="fas fa-edit"></i> Customer Data Entry</h2>
+        <p>Enter customer information to get segmentation predictions</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="form-card">
+                <form action="{{ url_for('predict_manual') }}" method="POST" id="manualForm">
+                    <!-- Model Selection -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-brain"></i> Model Selection</h4>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="model" class="form-label">Choose Prediction Model</label>
+                                <select class="form-control" id="model" name="model" required>
+                                    {% for model_name, model_code in models.items() %}
+                                        <option value="{{ model_name }}" {% if model_name == 'Random Forest' %}selected{% endif %}>
+                                            {{ model_name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Customer Information -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-user"></i> Customer Information</h4>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="education_level" class="form-label">Education Level</label>
+                                <select class="form-control" id="education_level" name="education_level" required>
+                                    <option value="0">Undergraduate</option>
+                                    <option value="1" selected>Graduate</option>
+                                    <option value="2">Postgraduate</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="marital_status" class="form-label">Marital Status</label>
+                                <select class="form-control" id="marital_status" name="marital_status" required>
+                                    <option value="Single" selected>Single</option>
+                                    <option value="Partner">Partner</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="annual_income" class="form-label">Annual Income ($)</label>
+                                <input type="number" class="form-control" id="annual_income" name="annual_income" 
+                                       step="0.01" min="0" required placeholder="e.g., 50000">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="age" class="form-label">Age</label>
+                                <input type="number" class="form-control" id="age" name="age" 
+                                       min="18" max="120" required placeholder="e.g., 35">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="num_children" class="form-label">Number of Children</label>
+                                <input type="number" class="form-control" id="num_children" name="num_children" 
+                                       min="0" value="0" placeholder="0">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="num_teenagers" class="form-label">Number of Teenagers</label>
+                                <input type="number" class="form-control" id="num_teenagers" name="num_teenagers" 
+                                       min="0" value="0" placeholder="0">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="signup_year" class="form-label">Year Joined</label>
+                                <input type="number" class="form-control" id="signup_year" name="signup_year" 
+                                       min="2000" max="2024" value="2013" placeholder="2013">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Spending Behavior -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-shopping-cart"></i> Spending Behavior</h4>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="spend_wine" class="form-label">Wine Spending ($)</label>
+                                <input type="number" class="form-control" id="spend_wine" name="spend_wine" 
+                                       step="0.01" min="0" value="0" placeholder="0.00">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="spend_fruits" class="form-label">Fruits Spending ($)</label>
+                                <input type="number" class="form-control" id="spend_fruits" name="spend_fruits" 
+                                       step="0.01" min="0" value="0" placeholder="0.00">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="spend_meat" class="form-label">Meat Spending ($)</label>
+                                <input type="number" class="form-control" id="spend_meat" name="spend_meat" 
+                                       step="0.01" min="0" value="0" placeholder="0.00">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="spend_fish" class="form-label">Fish Spending ($)</label>
+                                <input type="number" class="form-control" id="spend_fish" name="spend_fish" 
+                                       step="0.01" min="0" value="0" placeholder="0.00">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="spend_sweets" class="form-label">Sweets Spending ($)</label>
+                                <input type="number" class="form-control" id="spend_sweets" name="spend_sweets" 
+                                       step="0.01" min="0" value="0" placeholder="0.00">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="spend_gold" class="form-label">Gold Products Spending ($)</label>
+                                <input type="number" class="form-control" id="spend_gold" name="spend_gold" 
+                                       step="0.01" min="0" value="0" placeholder="0.00">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Purchase Channels & Engagement -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-shopping-bag"></i> Purchase Behavior & Engagement</h4>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="num_web_purchases" class="form-label">Web Purchases</label>
+                                <input type="number" class="form-control" id="num_web_purchases" name="num_web_purchases" 
+                                       min="0" value="0" placeholder="0">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="num_catalog_purchases" class="form-label">Catalog Purchases</label>
+                                <input type="number" class="form-control" id="num_catalog_purchases" name="num_catalog_purchases" 
+                                       min="0" value="0" placeholder="0">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="num_store_purchases" class="form-label">Store Purchases</label>
+                                <input type="number" class="form-control" id="num_store_purchases" name="num_store_purchases" 
+                                       min="0" value="0" placeholder="0">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="num_discount_purchases" class="form-label">Discount Purchases</label>
+                                <input type="number" class="form-control" id="num_discount_purchases" name="num_discount_purchases" 
+                                       min="0" value="0" placeholder="0">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="web_visits_last_month" class="form-label">Website Visits (Last Month)</label>
+                                <input type="number" class="form-control" id="web_visits_last_month" name="web_visits_last_month" 
+                                       min="0" value="0" placeholder="0">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="days_since_last_purchase" class="form-label">Days Since Last Purchase</label>
+                                <input type="number" class="form-control" id="days_since_last_purchase" name="days_since_last_purchase" 
+                                       min="0" value="30" placeholder="30">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="total_accepted_campaigns" class="form-label">Accepted Marketing Campaigns</label>
+                                <input type="number" class="form-control" id="total_accepted_campaigns" name="total_accepted_campaigns" 
+                                       min="0" max="5" value="0" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="d-flex gap-3">
+                        <button type="submit" class="btn btn-danger btn-lg flex-fill">
+                            <i class="fas fa-magic"></i> Predict Segment
+                        </button>
+                        <button type="reset" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-redo"></i> Reset
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
