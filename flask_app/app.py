@@ -249,11 +249,91 @@ def predict_manual():
             segment = "High-Value Segment"
             segment_desc = "Premium customers with high spending and strong engagement"
             color = "success"
+            
+            # Cluster 0 detailed profile
+            cluster_profile = {
+                'cluster_id': 0,
+                'cluster_name': 'Cluster 0: Premium High-Value Customers',
+                'characteristics': [
+                    'High total spending (> $800)',
+                    'Above-average income levels',
+                    'Frequent purchasers across multiple channels',
+                    'Strong engagement with premium products',
+                    'Responsive to exclusive offers'
+                ],
+                'typical_behavior': [
+                    'Prefers quality over price',
+                    'Often purchases wine, meat, and gold products',
+                    'Uses multiple shopping channels (web, catalog, store)',
+                    'Lower sensitivity to discounts',
+                    'Higher campaign acceptance rate'
+                ],
+                'demographics': [
+                    'Average Age: 45-55 years',
+                    'Income: $60,000+',
+                    'Education: Graduate/Postgraduate',
+                    'Family: Usually smaller households (1-3 members)'
+                ],
+                'marketing_strategy': [
+                    'Offer VIP loyalty programs with exclusive benefits',
+                    'Provide personalized product recommendations',
+                    'Send early access to new premium products',
+                    'Focus on quality and exclusivity in communications',
+                    'Maintain high-touch customer service'
+                ],
+                'retention_tips': [
+                    'Create exclusive membership tiers',
+                    'Offer premium gift options and packaging',
+                    'Provide dedicated customer support',
+                    'Send personalized thank-you notes',
+                    'Host exclusive events or tastings'
+                ]
+            }
         else:
             prediction = 1
             segment = "Standard Segment"
             segment_desc = "Regular customers with moderate spending patterns"
             color = "info"
+            
+            # Cluster 1 detailed profile
+            cluster_profile = {
+                'cluster_id': 1,
+                'cluster_name': 'Cluster 1: Standard Value-Conscious Customers',
+                'characteristics': [
+                    'Moderate spending (≤ $800)',
+                    'Budget-conscious purchasing behavior',
+                    'Price-sensitive decision making',
+                    'Selective purchasing patterns',
+                    'Values deals and promotions'
+                ],
+                'typical_behavior': [
+                    'Looks for best value and discounts',
+                    'Purchases essential items regularly',
+                    'Higher discount purchase rate',
+                    'More selective about premium products',
+                    'Responds well to promotional campaigns'
+                ],
+                'demographics': [
+                    'Average Age: 30-45 years',
+                    'Income: $30,000-$60,000',
+                    'Education: Varies (Undergraduate to Graduate)',
+                    'Family: Often larger households (3-5 members)'
+                ],
+                'marketing_strategy': [
+                    'Highlight value propositions and savings',
+                    'Send targeted discount offers and bundle deals',
+                    'Emphasize cost-effectiveness in communications',
+                    'Promote loyalty rewards programs',
+                    'Focus on seasonal sales and special promotions'
+                ],
+                'retention_tips': [
+                    'Implement points-based rewards system',
+                    'Offer bulk purchase discounts',
+                    'Send birthday/anniversary coupons',
+                    'Create value bundles and packages',
+                    'Provide free shipping thresholds'
+                ]
+            }
         
         print(f"Prediction: {prediction}, Segment: {segment}")
         
@@ -285,7 +365,8 @@ def predict_manual():
             'age': age,
             'income': f"${annual_income:.2f}",
             'family_size': family_size,
-            'web_visits': web_visits_last_month
+            'web_visits': web_visits_last_month,
+            'cluster_profile': cluster_profile
         }
         
         print("Insights prepared successfully")

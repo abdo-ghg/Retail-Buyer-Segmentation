@@ -19,7 +19,7 @@
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <label for="model" class="form-label">Choose Prediction Model</label>
-                                <select class="form-control" id="model" name="model" required>
+                                <select class="form-control" id="model" name="model">
                                     {% for model_name, model_code in models.items() %}
                                         <option value="{{ model_name }}" {% if model_name == 'Random Forest' %}selected{% endif %}>
                                             {{ model_name }}
@@ -36,7 +36,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="education_level" class="form-label">Education Level</label>
-                                <select class="form-control" id="education_level" name="education_level" required>
+                                <select class="form-control" id="education_level" name="education_level">
                                     <option value="0">Undergraduate</option>
                                     <option value="1" selected>Graduate</option>
                                     <option value="2">Postgraduate</option>
@@ -44,7 +44,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="marital_status" class="form-label">Marital Status</label>
-                                <select class="form-control" id="marital_status" name="marital_status" required>
+                                <select class="form-control" id="marital_status" name="marital_status">
                                     <option value="Single" selected>Single</option>
                                     <option value="Partner">Partner</option>
                                 </select>

@@ -9,15 +9,12 @@ document.addEventListener('DOMContentLoaded', function() {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     });
 
-    // Form validation
+    // Form validation - allow form to submit
     const forms = document.querySelectorAll('form');
     forms.forEach(form => {
         form.addEventListener('submit', function(e) {
-            if (!form.checkValidity()) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
             form.classList.add('was-validated');
+            // Allow form to submit normally - don't prevent default
         });
     });
 
