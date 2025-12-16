@@ -225,6 +225,96 @@ main {
 }
 
 /* ========================================
+   FILE UPLOAD
+   ======================================== */
+
+.file-upload-wrapper {
+    position: relative;
+    margin-bottom: 1.5rem;
+    height: 200px;
+}
+
+.file-upload-label {
+    width: 100%;
+    height: 100%;
+    border: 2px dashed var(--light-gray);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--medium-gray);
+    color: var(--text-gray);
+    text-align: center;
+    padding: 1rem;
+}
+
+.file-upload-label:hover {
+    border-color: var(--primary-red);
+    background: var(--dark-gray);
+    color: var(--white);
+}
+
+.file-upload-label i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--primary-red);
+}
+
+.file-upload-label p {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.file-upload-label span {
+    font-size: 0.9rem;
+    color: var(--text-gray);
+    margin-top: 0.5rem;
+}
+
+input[type="file"].custom-file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+/* ========================================
+   RECOMMENDATIONS LIST
+   ======================================== */
+
+.recommendations-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.recommendations-list li {
+    color: var(--text-gray);
+    padding: 0.75rem 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 1.05rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.recommendations-list li:last-child {
+    border-bottom: none;
+}
+
+.recommendations-list li i {
+    color: var(--primary-red);
+    margin-top: 0.3rem;
+}
+
+/* ========================================
    FORMS
    ======================================== */
 

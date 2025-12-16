@@ -9,24 +9,32 @@ document.addEventListener('DOMContentLoaded', function() {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     });
 
-    // Form validation - allow form to submit
-    const forms = document.querySelectorAll('form');
-    forms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            form.classList.add('was-validated');
-            // Allow form to submit normally - don't prevent default
-        });
-    });
-
     // File input styling
     const fileInputs = document.querySelectorAll('input[type="file"]');
     fileInputs.forEach(input => {
         input.addEventListener('change', function() {
             const fileName = this.files[0]?.name;
             if (fileName) {
-                const label = this.nextElementSibling;
-                if (label) {
-                    label.textContent = fileName;
+                // Check for custom file input structure
+                if (this.classList.contains('custom-file-input')) {
+                    const wrapper = this.closest('.file-upload-wrapper');
+                    const nameDisplay = wrapper.querySelector('.file-name');
+                    const instruction = wrapper.querySelector('.file-instruction');
+                    const icon = wrapper.querySelector('i');
+                    
+                    if (nameDisplay) {
+                        nameDisplay.textContent = fileName;
+                        nameDisplay.style.fontWeight = 'bold';
+                        nameDisplay.style.color = '#dc143c';
+                    }
+                    if (instruction) instruction.style.display = 'none';
+                    if (icon) icon.className = 'fas fa-file-csv';
+                } else {
+                    // Fallback for standard inputs
+                    const label = this.nextElementSibling;
+                    if (label && label.tagName === 'LABEL') {
+                        label.textContent = fileName;
+                    }
                 }
             }
         });
@@ -66,20 +74,20 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Loading animation for form submissions
-    const submitButtons = document.querySelectorAll('button[type="submit"]');
-    submitButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const form = this.closest('form');
-            if (form && form.checkValidity()) {
-                // Add loading state
-                const originalText = this.innerHTML;
-                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-                this.disabled = true;
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            const submitBtn = form.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                // Add loading state AFTER form starts submitting
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                submitBtn.disabled = true;
                 
-                // Re-enable after form is submitted (fallback)
+                // Re-enable after timeout (fallback if page doesn't navigate)
                 setTimeout(() => {
-                    this.innerHTML = originalText;
-                    this.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
                 }, 30000); // 30 seconds timeout
             }
         });

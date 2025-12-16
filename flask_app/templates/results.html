@@ -130,19 +130,19 @@
             <!-- Detailed Cluster Profile -->
             {% if insights.cluster_profile %}
             <div class="recommendations-card mb-4">
-                <h3 class="mb-4" style="color: #dc143c;">
+                <h3 class="mb-4 text-danger">
                     <i class="fas fa-users-cog"></i> {{ insights.cluster_profile.cluster_name }}
                 </h3>
                 
                 <!-- Characteristics -->
                 <div class="mb-4">
-                    <h5 style="color: #dc143c; border-bottom: 2px solid #dc143c; padding-bottom: 10px;">
+                    <h5 class="text-danger border-bottom border-danger pb-2 mb-3">
                         <i class="fas fa-star"></i> Key Characteristics
                     </h5>
-                    <ul style="list-style: none; padding-left: 0;">
+                    <ul class="recommendations-list">
                         {% for char in insights.cluster_profile.characteristics %}
-                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(220, 20, 60, 0.1);">
-                            <i class="fas fa-check-circle" style="color: #dc143c;"></i> {{ char }}
+                        <li>
+                            <i class="fas fa-check-circle"></i> {{ char }}
                         </li>
                         {% endfor %}
                     </ul>
@@ -150,62 +150,62 @@
                 
                 <!-- Typical Behavior -->
                 <div class="mb-4">
-                    <h5 style="color: #dc143c; border-bottom: 2px solid #dc143c; padding-bottom: 10px;">
-                        <i class="fas fa-shopping-bag"></i> Typical Shopping Behavior
+                    <h5 class="text-danger border-bottom border-danger pb-2 mb-3">
+                        <i class="fas fa-shopping-cart"></i> Typical Behavior
                     </h5>
-                    <ul style="list-style: none; padding-left: 0;">
+                    <ul class="recommendations-list">
                         {% for behavior in insights.cluster_profile.typical_behavior %}
-                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(220, 20, 60, 0.1);">
-                            <i class="fas fa-arrow-right" style="color: #dc143c;"></i> {{ behavior }}
+                        <li>
+                            <i class="fas fa-search-dollar"></i> {{ behavior }}
                         </li>
                         {% endfor %}
                     </ul>
                 </div>
-                
+
                 <!-- Demographics -->
                 <div class="mb-4">
-                    <h5 style="color: #dc143c; border-bottom: 2px solid #dc143c; padding-bottom: 10px;">
-                        <i class="fas fa-chart-pie"></i> Demographic Profile
+                    <h5 class="text-danger border-bottom border-danger pb-2 mb-3">
+                        <i class="fas fa-user-friends"></i> Demographics
                     </h5>
-                    <ul style="list-style: none; padding-left: 0;">
+                    <ul class="recommendations-list">
                         {% for demo in insights.cluster_profile.demographics %}
-                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(220, 20, 60, 0.1);">
-                            <i class="fas fa-user-circle" style="color: #dc143c;"></i> {{ demo }}
+                        <li>
+                            <i class="fas fa-info-circle"></i> {{ demo }}
                         </li>
                         {% endfor %}
                     </ul>
                 </div>
-                
+
                 <!-- Marketing Strategy -->
                 <div class="mb-4">
-                    <h5 style="color: #dc143c; border-bottom: 2px solid #dc143c; padding-bottom: 10px;">
-                        <i class="fas fa-bullhorn"></i> Recommended Marketing Strategy
+                    <h5 class="text-danger border-bottom border-danger pb-2 mb-3">
+                        <i class="fas fa-bullhorn"></i> Marketing Strategy
                     </h5>
-                    <ul style="list-style: none; padding-left: 0;">
+                    <ul class="recommendations-list">
                         {% for strategy in insights.cluster_profile.marketing_strategy %}
-                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(220, 20, 60, 0.1);">
-                            <i class="fas fa-lightbulb" style="color: #ffa500;"></i> {{ strategy }}
+                        <li>
+                            <i class="fas fa-lightbulb"></i> {{ strategy }}
                         </li>
                         {% endfor %}
                     </ul>
                 </div>
-                
+
                 <!-- Retention Tips -->
                 <div>
-                    <h5 style="color: #dc143c; border-bottom: 2px solid #dc143c; padding-bottom: 10px;">
-                        <i class="fas fa-heart"></i> Customer Retention Tips
+                    <h5 class="text-danger border-bottom border-danger pb-2 mb-3">
+                        <i class="fas fa-heart"></i> Retention Tips
                     </h5>
-                    <ul style="list-style: none; padding-left: 0;">
+                    <ul class="recommendations-list">
                         {% for tip in insights.cluster_profile.retention_tips %}
-                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(220, 20, 60, 0.1);">
-                            <i class="fas fa-hand-holding-heart" style="color: #dc143c;"></i> {{ tip }}
+                        <li>
+                            <i class="fas fa-hand-holding-heart"></i> {{ tip }}
                         </li>
                         {% endfor %}
                     </ul>
                 </div>
             </div>
             {% endif %}
-
+                
             <!-- Actions -->
             <div class="d-flex gap-3 mt-4">
                 <a href="{{ url_for('manual_input') }}" class="btn btn-outline-light btn-lg flex-fill">

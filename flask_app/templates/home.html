@@ -74,8 +74,13 @@
                     <li><i class="fas fa-angle-right"></i> Detailed visualizations</li>
                 </ul>
                 <form action="{{ url_for('upload_file') }}" method="POST" enctype="multipart/form-data" id="uploadForm">
-                    <div class="mb-3">
-                        <input type="file" name="file" id="fileInput" class="form-control form-control-lg" accept=".csv" required>
+                    <div class="file-upload-wrapper">
+                        <input type="file" name="file" id="fileInput" class="custom-file-input" accept=".csv" required>
+                        <div class="file-upload-label">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p class="file-name">Drag & Drop CSV file here</p>
+                            <span class="file-instruction">or click to browse</span>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-danger btn-lg w-100" id="uploadBtn">
                         <i class="fas fa-upload"></i> Upload & Analyze
