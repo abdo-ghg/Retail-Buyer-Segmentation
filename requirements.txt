@@ -4,9 +4,3 @@ matplotlib
 seaborn
 numpy
 pillow
-
-Retail-Buyer-segmentation/
-├── dashboard.py
-├── requirements.txt
-└── Data/
-    └── data.csv
