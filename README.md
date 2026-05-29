@@ -405,17 +405,7 @@ graph LR
 
 ## 📸 Screenshots
 
-> **Note**: Screenshots are generated dynamically when you upload data. The following charts are auto-saved to `flask_app/static/images/`:
-
-### Analytics Visualizations
-
-| Age Distribution | Income vs. Spending |
-|:---:|:---:|
-| ![Age Distribution](flask_app/static/images/age_distribution.png) | ![Income vs Spending](flask_app/static/images/income_vs_spend.png) |
-
-| Cluster Distribution | Spending by Category |
-|:---:|:---:|
-| ![Clusters](flask_app/static/images/cluster_distribution.png) | ![Spending](flask_app/static/images/spending_by_category.png) |
+> **Note**: Screenshots are generated dynamically when you upload data. The following charts are auto-saved to `images/`:
 
 ## 📸 Application Showcase
 
