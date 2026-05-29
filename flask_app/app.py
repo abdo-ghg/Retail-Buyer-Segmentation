@@ -56,30 +56,87 @@ def allowed_file(filename):
 
 def preprocess_data(df):
     """Preprocess the input data"""
-    # Feature engineering
-    df['age'] = 2014 - df['birth_year'] if 'birth_year' in df.columns else df.get('age', 0)
-    
-    # Total spend
+    # 1. Map and encode education_level if present
+    if 'education_level' in df.columns:
+        # Fill missing values for education_level before mapping
+        df['education_level'] = df['education_level'].fillna(df['education_level'].mode()[0] if len(df['education_level'].mode()) > 0 else 'Graduation')
+        
+        # Check if the column is string/object type before mapping
+        if df['education_level'].dtype == object or isinstance(df['education_level'].iloc[0], str):
+            # Normalize/clean categories
+            df['education_level'] = df['education_level'].replace({
+                "Basic": "Undergraduate", 
+                "2n Cycle": "Undergraduate", 
+                "Graduation": "Graduate", 
+                "Master": "Postgraduate", 
+                "PhD": "Postgraduate"
+            })
+            # Map categories to numeric values consistent with manual form (0, 1, 2)
+            edu_mapping = {"Undergraduate": 0, "Graduate": 1, "Postgraduate": 2}
+            df['education_level'] = df['education_level'].map(edu_mapping).fillna(1).astype(int)
+            
+    # 2. Extract signup_year from signup_date if present
+    if 'signup_date' in df.columns and 'signup_year' not in df.columns:
+        try:
+            df['signup_year'] = pd.to_datetime(df['signup_date'], errors='coerce').dt.year
+        except Exception:
+            pass
+            
+    # 3. Feature engineering: age
+    if 'birth_year' in df.columns:
+        df['age'] = 2014 - df['birth_year']
+    elif 'age' not in df.columns:
+        df['age'] = 45
+        
+    # 4. Total spend
     spend_cols = ['spend_wine', 'spend_fruits', 'spend_meat', 'spend_fish', 'spend_sweets', 'spend_gold']
-    if all(col in df.columns for col in spend_cols):
-        df['total_spent'] = df[spend_cols].sum(axis=1)
+    for col in spend_cols:
+        if col not in df.columns:
+            df[col] = 0
+    df['total_spent'] = df[spend_cols].sum(axis=1)
     
-    # Total purchases
+    # 5. Total purchases
     purchase_cols = ['num_discount_purchases', 'num_web_purchases', 'num_catalog_purchases', 'num_store_purchases']
-    if all(col in df.columns for col in purchase_cols):
-        df['total_purchases'] = df[purchase_cols].sum(axis=1)
+    for col in purchase_cols:
+        if col not in df.columns:
+            df[col] = 0
+    df['total_purchases'] = df[purchase_cols].sum(axis=1)
     
-    # Handle missing values
+    # 6. Derived child features
+    if 'num_children' in df.columns and 'num_teenagers' in df.columns:
+        df['children'] = df['num_children'] + df['num_teenagers']
+    elif 'children' not in df.columns:
+        df['children'] = df.get('num_children', 0)
+        
+    # 7. Derived family_size features
+    if 'children' in df.columns:
+        if 'marital_status' in df.columns:
+            partner_status = ['Married', 'Together', 'Partner']
+            df['family_size'] = df['children'] + df['marital_status'].apply(lambda x: 2 if str(x).title() in partner_status else 1)
+        else:
+            df['family_size'] = df['children'] + 1
+    elif 'family_size' not in df.columns:
+        df['family_size'] = 1
+        
+    # 8. Derived total accepted campaigns
+    campaign_cols = ['accepted_campaign_1', 'accepted_campaign_2', 'accepted_campaign_3', 'accepted_campaign_4', 'accepted_campaign_5', 'accepted_last_campaign']
+    available_campaigns = [col for col in campaign_cols if col in df.columns]
+    if available_campaigns:
+        df['total_accepted_campaigns'] = df[available_campaigns].sum(axis=1)
+    elif 'total_accepted_campaigns' not in df.columns:
+        df['total_accepted_campaigns'] = 0
+        
+    # 9. Handle missing values
     numeric_cols = df.select_dtypes(include=[np.number]).columns
     for col in numeric_cols:
         if df[col].isnull().any():
-            df[col].fillna(df[col].median(), inplace=True)
-    
+            df[col] = df[col].fillna(df[col].median())
+            
     categorical_cols = df.select_dtypes(include=['object']).columns
     for col in categorical_cols:
         if df[col].isnull().any():
-            df[col].fillna(df[col].mode()[0] if len(df[col].mode()) > 0 else 'Unknown', inplace=True)
-    
+            df[col] = df[col].fillna(df[col].mode()[0] if len(df[col].mode()) > 0 else 'Unknown')
+            
     return df
 
 def perform_clustering(df):
